@@ -8,38 +8,102 @@
 </head>
 <body>
   <header>
-    <h1>Macro 取扱説明書</h1>
+    <h1>証明書.xlsm について</h1>
   </header>
 
   <nav>
     <ul>
-      <li><a href="../macro/index.html">Macro</a></li>
-      <li><a href="../print/index.html">Print</a></li>
+      <li><a href="https://exhelper.github.io/certificate/macro/index.html">マクロについて</a></li>
+      <li><a href="https://exhelper.github.io/certificate/print/index.html">プリントの方法</a></li>
     </ul>
   </nav>
 
   <main>
     <section class="card">
       <h2>概要</h2>
-      <p>このページでは、Macro 機能の使用方法について説明します。</p>
+      <p>このページでは 証明書.xlsm のマクロについて、そして変更方法について説明します。</p>
     </section>
 
     <section class="card">
-      <h2>使い方</h2>
-      <ol>
-        <li>手順 1 を実行します。</li>
-        <li>手順 2 に進みます。</li>
-        <li>確認後、手順 3 を行います。</li>
-      </ol>
+      <h2>マクロの動作</h2>
+      <div class="two-column">
+        <div class="text">
+          <p>
+            マクロを使うことで、ボタンをクリックするだけで印刷などの処理を自動化できます。
+            画像はその一例で、証明書の印刷に用いられるボタンです。<br>
+
+            そのため、印刷範囲や動作を変えたくなったり、またバグが発生した際にはマクロを編集することで解決できます。
+            このページでは印刷範囲の変更方法、また印刷の順番の変更方法などについて記載します。
+          </p>
+        </div>
+        <div class="image modal-trigger">
+          <figure>
+            <img src="../assets/images/printbutton.png" alt="印刷ボタン">
+            <caption>印刷ボタン </caption>
+          </figure>
+        </div>
+      </div>
     </section>
 
     <section class="card">
-      <h2>注意事項</h2>
-      <ul>
-        <li>データのバックアップを必ず行ってください。</li>
-        <li>操作ミスにご注意ください。</li>
-      </ul>
+      <h2>マクロの開き方</h2>
+      <p>
+        手順①<br>
+        Alt + F11 を押します。すると一枚目の画像のようなウィンドウが立ち上がります。
+      </p>
+      <p>
+        手順②<br>
+        そうしたらウィンドウの右上にある「標準モジュール」内の「Module1」をダブルクリックします。
+      </p>
+      <p>
+        手順③-A<br>
+        もし画像のようにたくさんのウィンドウが開いたら、たくさん文字の書いてあるウィンドウを探します。今後編集しやすくするために、赤い四角の部分をクリックしてウィンドウを最大化することをお勧めします。<br>
+        手順③-B<br>
+        手順③-Bのように、真っ白なウインドウが全画面で開いてしまった場合は、赤い四角で囲ってある右上の部分をクリックすると真っ白なウインドウを閉じることができます。その後手順③-Aに移ってください。
+      </p>
+
+      <div class="image-row">
+        <figure class="modal-trigger">
+          <img src="../assets/images/macro1_showwindow.png" alt="手順1 ウィンドウを表示">
+          <caption>手順①</caption>
+        </figure>
+        <figure class="modal-trigger">
+          <img src="../assets/images/macro2_openmodule1.png" alt="手順2 モジュールを開く">
+          <caption>手順②</caption>
+        </figure>
+        <figure class="modal-trigger">
+          <img src="../assets/images/macro3-A_selectmodule.png" alt="手順3-A モジュールを選ぶ">
+          <caption>手順③-A</caption>
+        </figure>
+        <figure class="modal-trigger">
+          <img src="../assets/images/macro3-B_closebiggestwindow.png" alt="手順3-B 最大化されたモジュールを閉じる">
+          <caption>手順③-B</caption>
+        </figure>
+      </div>
     </section>
+    
+    <section class="card">
+      <h2>印刷範囲の変更方法</h2>
+      <p>
+        マクロは中央の薄い罫線(画像では赤色をつけている)を境に上と下で別々に分かれています。<br>
+        線を境に上側のマクロは「このシートのみ印刷」のボタンに対応し、下側のマクロは「両シート印刷」のボタンに対応しています。<br>
+        上から一つ目の赤い四角の部分は、「このシートのみ印刷」で使用する範囲です。ここを変更することで「このシートのみ印刷」の際にどこからどこまで印刷するかを指定できます。<br>
+        上から二つ目の赤い四角の部分は、「両シート印刷」の中でも、資格証明書の印刷時に使用する範囲です。ここを変更することで「両シート印刷」の際に資格証明書のどこからどこまでを印刷するかを指定できます。<br>
+        上から三つ目の赤い四角の部分は、「両シート印刷」の中でも、喪失証明書の印刷時に使用する範囲です。ここを変更することで「両シート印刷」の際に喪失証明書のどこからどこまでを印刷するかを指定できます。
+      </p>
+
+      <div class="image-row">
+        <figure class="modal-trigger">
+          <img src="../assets/images/macro_chapter.png" alt="範囲の説明">
+          <caption>マクロの境目</caption>
+        </figure>
+        <figure class="modal-trigger">
+          <img src="../assets/images/macro_howtochange.png" alt="手順2 モジュールを開く">
+          <caption>範囲の指定</caption>
+        </figure>
+      </div>
+    </section>
+
   </main>
 
   <footer>
