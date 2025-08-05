@@ -5,8 +5,15 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'CONSOLA';
+  src: url('/assets/fonts/CONSOLA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
   font-size: calc(0.5vw + 10px);
   background-color: #f4f4f4;
   color: #333;
@@ -187,4 +194,23 @@ footer {
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   cursor: auto;
+}
+
+/* コードブロックのスタイル */
+.code-block {
+  background-color: #1e1e1e;  /* ダーク背景 */
+  color: #f8f8f2;             /* 明るい文字 */
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;           /* 横スクロール対応 */
+  font-family: "CONSOLA" 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, 'Courier New', monospace;
+  font-size: 0.9em;
+  margin-top: 1rem;
+  line-height: 1.5;
+}
+
+/* コード内の強調も対応可（任意） */
+.code-block code {
+  display: block;
+  white-space: pre;
 }
