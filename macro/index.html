@@ -4,7 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>証明書.xlsm - Macro</title>
-  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/style.css"><!-- head に追加 -->
+  <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Roboto+Mono&family=Source+Code+Pro&display=swap" rel="stylesheet">
+
+  <!-- GitHub Dark テーマ（ダークモード用） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <!-- Highlight.js 本体 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <!-- VBA対応の言語定義を読み込む（vbscriptがVBAとして機能します） -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbscript.min.js"></script>
+
 </head>
 <body>
   <header>
@@ -115,16 +124,271 @@
     <section class="card">
       <h2>マクロの仕組み</h2>
       <p>
-        aaa
+        ここではマクロの仕組みを、複数行ずつに分けながら解説します。
       </p>
-      <pre class="code-block">
-        <code>
-          function greet(name) {
-            console.log("Hello, " + name + "!");
-          }
-          greet("world");
-        </code>
-      </pre>
+
+      <pre class="code-block language-vbscript"><code>
+Sub singleprint()
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+          これはプログラムに「signleprint」という名前を付けています。この後にある一つ目の「End Sub」までで一つの塊です。<br>
+          その「End Sub」のすぐ後に「Sub allprint()」と書いてあると思います。そこから最後の「End Sub」まででもう一つの塊です。<br>
+          このプログラムは前半「Sub sigleprint()」から「End Sub」までと、後半「Sub allprint()」から「End Sub」までの二つの塊に分かれています。<br>
+        </p>
+      </div>
+
+      <pre class="code-block language-vbscript"><code>
+'現在開いているシートのみを印刷
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+          このように、「'」から始まっている行がいくつかあります。これらは「コメント」と呼ばれます。<br>
+          「'」から始まっている行はプログラムを実行するとき(つまりボタンを押したとき)完全に無視されます。<br>
+          そのため、このようにメモを残すことができ、書いたコードがわかりやすくなります。
+        </p>
+      </div>
+
+
+      <pre class="code-block language-vbscript"><code>
+Dim i As String
+
+i = 1
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+          いきなり「i」が登場しても、コンピュータからすれば何を言っているのかわかりません。<br>
+          そのため、まず一行目で「Dim i As String」として「i は String(数値)です」と宣言しています。こうすることで、コンピュータはこれ以降「i」が出てきたら数値だと解釈してプログラムを実行します。<br>
+          そしてその次の行で「i = 1」として「i」に1を代入しています。この「i」はのちのち役に立ちます。
+        </p>
+      </div>
+
+
+      <pre class="code-block language-vbscript"><code>
+Do While ActiveWorkbook.Worksheets("印刷範囲").Cells(i, 1).Value <> ""
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+          ここから一つ目の「Loop」までを何度も繰り返し実行します。永遠に繰り返されては困るので「こうなったら繰り返しをやめる」という条件も一緒に書いてあります。<br>
+          まずは「ActiveWorkbook.Worksheets("印刷範囲").Cells(i, 1).Value」の部分をひとつずつ分解してみます。<br>
+          ActiveWorkbook ⸺ 今開いているブック(=証明書.xlsm)<br>
+          Worksheets("印刷範囲") ⸺ 「印刷範囲」シート<br>
+          Cells(i, 1) ⸺ 「i」行目、1列目のセル<br>
+          Value ⸺ 値<br>
+          すべてつなげてみると、「『証明書.xlsm』の中の『印刷範囲』シートの「i」行目、1列目のセルの値」ということです。<br>
+          そのあとに「<>」とあります。これはノットイコール(≠)と同じ意味です。<br>
+          「<>」のあとには「""」とあります。これは「何もない」という意味です<br>
+          先ほどの「i」と同様に、コンピュータはいきなり文字を言われても理解ができません。そのため「これは文字だ」ということを表すために「"」で囲みます。例として「"あいうえお"」といったようにします。<br>
+          そして、「あいうえお」をなくし、「無」を表すようにしたものが「""」だということです。<br>
+
+          これですべての意味が分かりました。つなげて解釈すると<br>
+          <b>「『証明書.xlsm』の中の『印刷範囲』シートの「i」行目、1列目のセルの値　が　からっぽ(「""」のこと)　ではない(「<>」のこと)　ならば、ループする」</b><br>
+          というようになります。
+
+          条件に当てはまらない、つまり「『空白ではない』ではない(セルが空白)」の場合は「Do While ...」から「Loop」までの処理は行われず、「Loop」の後まで飛びます。
+        </p>
+      </div>
+
+      <pre class="code-block language-vbscript"><code>
+With ActiveWorkbook.ActiveSheet
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+          ここから「End with」までで一つの塊です。<br>
+          「ActiveWorkbook」はひとつ前の部分でも説明した通り、「証明書.xlsm」のことです。<br>
+          「ActiveSheet」は今開いているシートのこと(「資格証明書」シートや「喪失証明書」シートなど)です。<br>
+          つまり「ActiveWorkbook.ActiveSheet」は「証明書.xlsm」の今開いているシートをさします。<br>
+          「With」から「End With」の間は、すべてこの『「証明書.xlsm」の今開いているシート』の部分の命令だとコンピュータに伝える役割があります。
+        </p>
+      </div>
+
+      <pre class="code-block language-vbscript"><code>
+.Range("A1").Value = ActiveWorkbook.Worksheets("印刷範囲").Cells(i, 1).Value
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+          「Range("A1")」というのは、A1セルをさします。ここで、先ほどの「With ActiveWorkbook.ActiveSheet」が役に立ちます。<br>
+          これがあるため、「『証明書.xlsm』の、今開いているシートの、A1セル」を指しているということになります。<br>
+          「Value」とあるため、そのセルの値です。<br>
+          「=(イコール)」より右側は先ほどと同じで「『証明書.xlsm』の中の『印刷範囲』シートの「i」行目、1列目のセルの値」という意味です。<br>
+          つまり、「『証明書.xlsm』の、今開いているシートの、A1セル」に「『証明書.xlsm』の中の『印刷範囲』シートの「i」行目、1列目のセルの値」を代入するということになります。<br>
+        </p>
+      </div>
+
+      <pre class="code-block language-vbscript"><code>
+.PageSetup.PrintArea = "A1:F29"
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+          ここでは印刷範囲を設定しています。この次に印刷をするコマンドが書いてあるため、その際に「A1:F29」の範囲が印刷されます。
+        </p>
+      </div>
+
+      <pre class="code-block language-vbscript"><code>        
+.PrintOut _
+      From:=1 _
+    , To:=1 _
+    , Copies:=1 _
+    , Preview:=False _
+    , PrintToFile:=False _
+    , Collate:=True _
+    , IgnorePrintAreas:=False
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+          ここでは印刷の命令を出しています。2行目以降は印刷のオプションが記載されています。<br>
+          2行目 ⸺ 「From」では印刷プレビューの何ページ目から印刷するかを指定します。この場合は1ページ目からです。<br>
+          3行目 ⸺ 「To」では印刷プレビューの何ページ目まで印刷するかを指定します。この場合は1ページ目までです。<br>
+          4行目 ⸺ 「Copies」では何部印刷するかを指定します。この場合は1部(1枚)だけ印刷します。<br>
+          5行目 ⸺ 「Preview」では印刷プレビューを表示するかしないかを指定します。この場合は表示しません。<br>
+          6行目 ⸺ 「PrintToFile」では印刷範囲をファイル(pdf)として出力するかを指定します。この場合は出力しません。<br>
+          7行目 ⸺ 「Collate」では部単位で印刷するかどうかを指定します。たとえば1~2ページを3部印刷する際、「121212」と印刷するか「111222」と印刷するかという違いです。この場合は前者の「部単位の印刷」が行われます(印刷枚数が1枚のため、この設定はしなくても構わない)。
+          8行目 ⸺ 「IgnorePrintAreas」では印刷範囲を無視して印刷するかを指定します。
+        </p>
+      </div>
+
+      <pre class="code-block language-vbscript"><code>
+End With
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+          「With ActiveWorkbook.ActiveSheet」からここまでで一つの塊です。ここ以降は『「証明書.xlsm」の今開いているシート』の命令だというようには扱われません。
+        </p>
+      </div>
+
+      <pre class="code-block language-vbscript"><code>
+i = i + 1
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+          「i」に1を足します。iが1なら2、iが2なら3になります。
+        </p>
+      </div>
+
+      <pre class="code-block language-vbscript"><code>
+Loop
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+          ここで、最初の「Do while ActiveWorkbook.Worksheets("印刷範囲").Cells(i, 1).Value <> ""」まで戻ります。<br>
+          条件に当てはまらなければこの後の処理が行われます。
+        </p>
+      </div>
+
+      <pre class="code-block language-vbscript"><code>
+End Sub
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+          「Sub singleprint()」からここまでで一つの塊です。
+        </p>
+      </div>
+
+      <!-- テンプレ -->
+      <div style="display: none;">
+      <pre class="code-block language-vbscript"><code>
+      </code></pre>
+      <button class="toggle-btn">説明(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>
+        </p>
+      </div>
+      </div>
+
+    </section>
+
+    <section class="card">
+      <h2>マクロ全文</h2>
+      <button class="toggle-btn">マクロ全文(クリックで表示/非表示)</button>
+      <div class="slide-content">
+        <p>以下は 証明書.xlsm のマクロ全文です。マクロが作られた当時のものであるため、以降編集した場合は内容が変わっています。</p>
+        <pre class="code-block language-vbscript"><code>
+Sub singleprint()
+
+'現在開いているシートのみを印刷
+
+Dim i As String
+
+i = 1
+
+Do While ActiveWorkbook.Worksheets("印刷範囲").Cells(i, 1).Value <> ""
+
+    With ActiveWorkbook.ActiveSheet
+        .Range("A1").Value = ActiveWorkbook.Worksheets("印刷範囲").Cells(i, 1).Value
+        .PageSetup.PrintArea = "A1:F29" '印刷範囲(開いているシート)の定義
+        .PrintOut _
+              From:=1 _
+            , To:=1 _
+            , Copies:=1 _
+            , Preview:=False _
+            , PrintToFile:=False _
+            , Collate:=True _
+            , IgnorePrintAreas:=False
+    End With
+
+    i = i + 1
+
+Loop
+
+End Sub
+
+'------ここから下は「両シート印刷」ボタン------
+
+Sub allprint()
+
+'資格証明書と喪失証明書の両方を印刷
+
+Dim j As String
+
+j = 1
+
+Do While ActiveWorkbook.Worksheets("印刷範囲").Cells(j, 1).Value <> ""
+
+    With ActiveWorkbook.Worksheets("資格証明書") '資格証明書の印刷
+        .Range("A1").Value = ActiveWorkbook.Worksheets("印刷範囲").Cells(j, 1).Value
+        .PageSetup.PrintArea = "A1:F29" '資格証明書の印刷範囲の定義
+        .PrintOut _
+              From:=1 _
+            , To:=1 _
+            , Copies:=1 _
+            , Preview:=False _
+            , PrintToFile:=False _
+            , Collate:=True _
+            , IgnorePrintAreas:=False
+    End With
+    
+    With ActiveWorkbook.Worksheets("喪失証明書")
+        .Range("A1").Value = ActiveWorkbook.Worksheets("印刷範囲").Cells(j, 1).Value
+        .PageSetup.PrintArea = "A1:F28" '喪失証明書の印刷範囲の定義
+        .PrintOut _
+              From:=1 _
+            , To:=1 _
+            , Copies:=1 _
+            , Preview:=False _
+            , PrintToFile:=False _
+            , Collate:=True _
+            , IgnorePrintAreas:=False
+    End With
+    
+j = j + 1
+
+Loop
+
+End Sub
+        </code></pre>
+      </div>
     </section>
 
   </main>
@@ -134,5 +398,9 @@
   </footer>
 
   <script src="../assets/program.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
+
 </body>
 </html>
